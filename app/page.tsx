@@ -1,11 +1,11 @@
-import Image from "next/image";
+import Header from "./components/Header/Header";
+import StoriesContainer from "./components/StoriesContainer/StoriesContainer";
 
 export default function Home() {
   return (
     <main className="">
-      <h2>
-        Instagram
-      </h2>
+      <Header />
+      <StoriesContainer />
     </main>
   );
 }
