@@ -101,7 +101,7 @@ const UserStoryPopup = ({
     addCurrentStoryToHistory(currentStory);
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-black flex flex-col items-center justify-center">
+        <div className="fixed top-0 left-0 w-full h-full bg-black flex flex-col items-center justify-center scale-animation">
             <div className='progress-bar-container absolute top-2 w-[98%] mx-auto z-20'>
                 <div className="flex justify-between mb-4">
                     {currentUser.media.map((story, index) => (
