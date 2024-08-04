@@ -195,3 +195,27 @@ body {
     width: 100%;
   }
 }
+
+.slide-right {
+  animation: slide-right 200ms linear forwards;
+}
+
+.slide-left {
+  animation: slide-left 200ms linear forwards;
+}
+
+@keyframes slide-right {
+  0% {
+    transform: translateX(100%);
+  } 100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(-100%);
+  } 100% {
+    transform: translateX(0%);
+  }
+}

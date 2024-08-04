@@ -36,18 +36,18 @@ const usersStories: UserStories[] = [
         },
         media: [
             {
-                id: "21",
-                mediaUrl: "https://ucarecdn.com/1fa3db01-dbd0-4890-9938-1bd4bc8e468e/",
-                mediaType: "video",
-                postedHoursAgo: '1 h',
-                duration: 15000
-            },
-            {
                 id: "3",
                 mediaUrl: "https://ucarecdn.com/da0913de-eaa2-44ce-a6a0-0fb6473d634d/-/preview/666x1000/",
                 mediaType: "image",
                 postedHoursAgo: '3 h',
                 duration: 5000,
+            },
+            {
+                id: "21",
+                mediaUrl: "https://ucarecdn.com/1fa3db01-dbd0-4890-9938-1bd4bc8e468e/",
+                mediaType: "video",
+                postedHoursAgo: '1 h',
+                duration: 15000
             },
             {
                 id: "4",
