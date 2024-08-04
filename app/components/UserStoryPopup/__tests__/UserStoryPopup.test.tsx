@@ -39,21 +39,21 @@ describe('UserStoryPopup', () => {
     expect(screen.getByAltText('story')).toBeInTheDocument();
   });
 
-//   test('calls onClose when close button is clicked', () => {
-//     const onClose = jest.fn();
-//     render(<UserStoryPopup isOpen={true} onClose={onClose} stories={mockStories} />);
-    
-//     // Click the close button
-//     fireEvent.click(screen.getByRole('button', { name: /close/i }));
-    
-//     // Assert onClose is called
-//     expect(onClose).toHaveBeenCalled();
-//   });
+  test('calls onClose when close button is clicked', () => {
+    const onClose = jest.fn();
+    render(<UserStoryPopup isOpen={true} onClose={onClose} stories={mockStories} />);
 
-test('advances to the next story automatically after duration', async () => {
+    // Click the close button
+    fireEvent.click(screen.getByTestId('close-button'));
+
+    // Assert onClose is called
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  test('advances to the next story automatically after duration', async () => {
     jest.useFakeTimers();
     render(<UserStoryPopup isOpen={true} onClose={jest.fn()} stories={mockStories} isTest={true} />);
-    
+
     // Fast-forward time
     act(() => {
       jest.advanceTimersByTime(5000); // Adjust time to match duration
@@ -63,19 +63,19 @@ test('advances to the next story automatically after duration', async () => {
     await waitFor(() => {
       expect(screen.getByAltText('story')).toHaveAttribute('src', '/_next/image?url=https%3A%2F%2Fexample.com%2Fstory2.jpg&w=3840&q=75');
     });
-    
+
     jest.useRealTimers();
   });
 
-//   test('navigates to the next and previous stories on button click', async () => {
-//     render(<UserStoryPopup isOpen={true} onClose={jest.fn()} stories={mockStories} />);
-    
-//     // Navigate to the next story
-//     fireEvent.click(screen.getByRole('button', { name: /next/i }));
-//     expect(screen.getByAltText('story')).toHaveAttribute('src', 'https://example.com/story2.jpg');
-    
-//     // Navigate to the previous story
-//     fireEvent.click(screen.getByRole('button', { name: /previous/i }));
-//     expect(screen.getByAltText('story')).toHaveAttribute('src', 'https://example.com/story1.jpg');
-//   });
+  test('navigates to the next and previous stories on button click', async () => {
+    render(<UserStoryPopup isOpen={true} onClose={jest.fn()} stories={mockStories} isTest={true} />);
+
+    // Navigate to the next story
+    fireEvent.click(screen.getByTestId('next-button'));
+    expect(screen.getByAltText('story')).toHaveAttribute('src', '/_next/image?url=https%3A%2F%2Fexample.com%2Fstory2.jpg&w=3840&q=75');
+
+    // Navigate to the previous story
+    fireEvent.click(screen.getByTestId('prev-button'));
+    expect(screen.getByAltText('story')).toHaveAttribute('src', '/_next/image?url=https%3A%2F%2Fexample.com%2Fstory1.jpg&w=3840&q=75');
+  });
 });
