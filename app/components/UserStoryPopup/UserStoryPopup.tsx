@@ -23,7 +23,7 @@ const UserStoryPopup = ({
 }: PopupProps) => {
     const [currentUserIndex, setCurrentUserIndex] = useState(initialUserIndex);
     const [currentStoryIndex, setCurrentStoryIndex] = useState(initialStoryIndex);
-    const [isPlaying, setIsPlaying] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(true)
     const [imageLoading, setImageLoading] = useState(true);
     const [currentAnimation, setCurrentAnimation] = useState('');
 
@@ -157,7 +157,7 @@ const UserStoryPopup = ({
                                 key={`current-${currentStoryIndex}`}
                                 priority
                                 src={currentStory.mediaUrl}
-                                alt="current story"
+                                alt="story"
                                 layout="fill"
                                 objectFit="cover"
                                 className={`w-full h-full object-cover ${currentAnimation}`}
