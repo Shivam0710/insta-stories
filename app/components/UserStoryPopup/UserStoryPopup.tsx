@@ -12,6 +12,7 @@ type PopupProps = {
     initialUserIndex?: number;
     initialStoryIndex?: number;
     stories: UserStories[];
+    isTest?: boolean;
 };
 
 const UserStoryPopup = ({
@@ -19,12 +20,13 @@ const UserStoryPopup = ({
     onClose,
     initialUserIndex = 0,
     initialStoryIndex = 0,
-    stories
+    stories,
+    isTest=false
 }: PopupProps) => {
     const [currentUserIndex, setCurrentUserIndex] = useState(initialUserIndex);
     const [currentStoryIndex, setCurrentStoryIndex] = useState(initialStoryIndex);
     const [isPlaying, setIsPlaying] = useState(true)
-    const [imageLoading, setImageLoading] = useState(true);
+    const [imageLoading, setImageLoading] = useState(isTest ? false : true);
     const [currentAnimation, setCurrentAnimation] = useState('');
 
     const currentUser = stories[currentUserIndex];

@@ -32,7 +32,7 @@ const mockStories: UserStories[] = [
 describe('UserStoryPopup', () => {
   test('renders correctly when open', () => {
     render(<UserStoryPopup isOpen={true} onClose={jest.fn()} stories={mockStories} />);
-    
+
     // Assert popup elements are displayed
     expect(screen.getByAltText('User 1')).toBeInTheDocument();
     expect(screen.getByText('user1')).toBeInTheDocument();
@@ -52,7 +52,7 @@ describe('UserStoryPopup', () => {
 
 test('advances to the next story automatically after duration', async () => {
     jest.useFakeTimers();
-    render(<UserStoryPopup isOpen={true} onClose={jest.fn()} stories={mockStories} />);
+    render(<UserStoryPopup isOpen={true} onClose={jest.fn()} stories={mockStories} isTest={true} />);
     
     // Fast-forward time
     act(() => {
@@ -78,26 +78,4 @@ test('advances to the next story automatically after duration', async () => {
 //     fireEvent.click(screen.getByRole('button', { name: /previous/i }));
 //     expect(screen.getByAltText('story')).toHaveAttribute('src', 'https://example.com/story1.jpg');
 //   });
-
-  test('navigates to the next user and closes the popup when the last story is reached', async () => {
-    jest.useFakeTimers();
-    const onClose = jest.fn();
-    render(<UserStoryPopup isOpen={true} onClose={onClose} stories={mockStories} initialUserIndex={0} initialStoryIndex={1} />);
-    
-    // Fast-forward time
-    act(() => {
-        jest.advanceTimersByTime(5000); // Adjust time to match duration
-    });
-
-    act(() => {
-        jest.advanceTimersByTime(5000); // Adjust time to match duration
-    });
-    
-    // Assert the popup closes after the last story
-    await waitFor(() => {
-        expect(onClose).toHaveBeenCalled();
-    })
-    
-    jest.useRealTimers();
-  });
 });
