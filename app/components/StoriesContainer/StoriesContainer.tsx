@@ -20,7 +20,7 @@ export default function StoriesContainer() {
     }, [])
 
     return (
-        <div className='bg-[#121212] overflow-hidden'>
+        <div className='dark:bg-[#121212] bg-white overflow-hidden'>
             {loading ? <Loader /> : <StoriesList stories={stories} />}
         </div>
     )
