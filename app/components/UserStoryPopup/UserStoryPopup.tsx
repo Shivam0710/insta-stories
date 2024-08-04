@@ -136,7 +136,7 @@ const UserStoryPopup = ({
                             </p>
                         </div>
                     </div>
-                    <IoCloseSharp className='self-start' size={24} onClick={onClose} color='white' />
+                    <IoCloseSharp data-testid='close-button' className='self-start' size={24} onClick={onClose} color='white' />
                 </div>
             </div>
 
@@ -169,8 +169,8 @@ const UserStoryPopup = ({
                     </div>
             </div>
             <div className='h-screen w-screen absolute top-0 left-0'>
-                <div className='h-screen w-1/2 absolute top-0 left-0' onClick={handlePrevStory}></div>
-                <div className='h-screen w-1/2 absolute top-0 right-0' onClick={handleNextStory}></div>
+                <div data-testid="prev-button" className='h-screen w-1/2 absolute top-0 left-0' onClick={handlePrevStory}></div>
+                <div data-testid="next-button" className='h-screen w-1/2 absolute top-0 right-0' onClick={handleNextStory}></div>
             </div>
         </div>
     );
