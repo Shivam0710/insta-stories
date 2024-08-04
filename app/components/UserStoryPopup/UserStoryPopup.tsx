@@ -87,13 +87,13 @@ const UserStoryPopup = ({
     }
 
     useEffect(() => {
-        if (isPlaying) {
+        if (isPlaying && !imageLoading) {
             const timer = setTimeout(() => {
                 handleNextStory();
             }, currentStory.duration * 1);
             return () => clearTimeout(timer);
         }
-    }, [isPlaying, currentStoryIndex, currentUserIndex, currentStory.duration]);
+    }, [isPlaying, currentStoryIndex, currentUserIndex, currentStory.duration, imageLoading]);
 
     useSwipe(handleNextUser, handlePrevUser);
 
@@ -110,7 +110,7 @@ const UserStoryPopup = ({
                             className={`h-1 rounded mx-1 flex-grow ${index < currentStoryIndex ? 'bg-white' : 'bg-gray-200'}`}
                             style={{ marginRight: index !== currentUser.media.length - 1 ? '4px' : '0' }}
                         >
-                            {index === currentStoryIndex && (
+                            {(index === currentStoryIndex) && !imageLoading && (
                                 <div
                                     className="bg-white h-1 rounded"
                                     style={{
