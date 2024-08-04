@@ -23,7 +23,9 @@ export default function StoryThumbnail({ user, index, media, onClick}: StoryThum
     return (
         <div className='flex flex-col first:pl-4 last:pr-4 justify-center items-center w-[80px] text-ellipsis gap-2' onClick={() => onClick(index, leftStoryIndex)}>
             <button className={`${borderColorClass} text-white font-semibold p-[3px] rounded-full`}>
-                <Image width={56} height={56} className='h-[56px] w-[56px] rounded-full' src={user.avatarUrl} alt={user.name} />
+                <div className='relative h-[56px] w-[56px]'>
+                    <Image fill className='h-[56px] w-[56px] rounded-full' src={user.avatarUrl} alt={user.name}/>
+                </div>
             </button>
             <p className='w-[70px] text-ellipsis overflow-hidden text-wrap text-sm'> {user.userName} </p> 
         </div>

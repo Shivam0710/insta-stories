@@ -129,7 +129,7 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
 
             <div className='w-full h-full'>
                 {imageLoading && <div className='h-full w-full flex items-center'> <Loader /> </div>} 
-                <Image style={{ visibility: imageLoading ? 'hidden' : 'visible' }} src={currentStory.mediaUrl} alt="story" layout="fill" objectFit="cover" onLoad={() => setImageLoading(false)}  />
+                <Image priority={true} style={{ visibility: imageLoading ? 'hidden' : 'visible' }} src={currentStory.mediaUrl} alt="story" layout="fill" objectFit="cover" onLoad={() => setImageLoading(false)}  />
             </div>
             <div className='h-screen w-screen absolute top-0 left-0'>
                 <div className='h-screen w-1/2 absolute top-0 left-0' onClick={handlePrevStory}>

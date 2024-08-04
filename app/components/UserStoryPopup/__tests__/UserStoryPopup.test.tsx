@@ -61,7 +61,7 @@ test('advances to the next story automatically after duration', async () => {
 
     // Assert that the next story is displayed
     await waitFor(() => {
-      expect(screen.getByAltText('story')).toHaveAttribute('src', 'https://example.com/story2.jpg');
+      expect(screen.getByAltText('story')).toHaveAttribute('src', '/_next/image?url=https%3A%2F%2Fexample.com%2Fstory2.jpg&w=3840&q=75');
     });
     
     jest.useRealTimers();
