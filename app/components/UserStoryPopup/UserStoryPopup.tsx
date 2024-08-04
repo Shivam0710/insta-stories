@@ -1,7 +1,7 @@
 import { addCurrentStoryToHistory, getRandomInt } from '@/helpers/helper';
 import useSwipe from '@/hooks/useSwipe';
 import { UserStories } from '@/types/types';
-import Image from 'next/image';
+import NextImage from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { IoCloseSharp } from "react-icons/io5";
 import Loader from '../Loader/Loader';
@@ -37,7 +37,6 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
                 }
             }, currentStory.duration * 1);
             return () => clearTimeout(timer);
-            
         }
     }, [isPlaying, currentStoryIndex, currentUserIndex, currentStory.duration, onClose]);
 
@@ -113,7 +112,7 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
                 </div>
                 <div className='flex flex-row items-center justify-between pr-2'>
                     <div className='flex flex-row items-center gap-3'>
-                        <Image width={40} height={40} src={currentUser.user.avatarUrl} alt={currentUser.user.name} className="h-10 w-10 rounded-full" />
+                        <NextImage width={40} height={40} src={currentUser.user.avatarUrl} alt={currentUser.user.name} className="h-10 w-10 rounded-full" />
                         <div className='flex gap-2'>
                             <p className='text-sm max-w-[100px] text-ellipsis overflow-hidden'>
                                 {currentUser.user.userName}
@@ -128,43 +127,39 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
             </div>
 
             <div className='w-full h-full'>
-                {imageLoading && <div className='h-full w-full flex items-center'> <Loader /> </div>} 
-                <Image priority={true} style={{ visibility: imageLoading ? 'hidden' : 'visible' }} src={currentStory.mediaUrl} alt="story" layout="fill" objectFit="cover" onLoad={() => setImageLoading(false)}  />
+                { currentStory.mediaType === "video" &&
+                    <video
+                        className='w-full h-full'
+                        src={currentStory.mediaUrl}
+                        onEnded={handleNextStory}
+                        autoPlay
+                        muted
+                    />
+                }
+                { currentStory.mediaType === "image" &&
+                    <>
+                        {imageLoading && <div className='h-full w-full flex items-center'> <Loader /> </div>}
+                        <NextImage
+                            key={`${currentUserIndex}-${currentStoryIndex}`} // Add unique key
+                            priority={true}
+                            style={{ visibility: imageLoading ? 'hidden' : 'visible' }}
+                            src={currentStory.mediaUrl}
+                            alt="story"
+                            layout="fill"
+                            objectFit="cover"
+                            onLoad={() => {
+                                console.log("Loading done")
+                                setImageLoading(false)
+                            }}
+                        />
+                    </>
+                }
+                
             </div>
             <div className='h-screen w-screen absolute top-0 left-0'>
-                <div className='h-screen w-1/2 absolute top-0 left-0' onClick={handlePrevStory}>
-
-                </div>
-                <div className='h-screen w-1/2 absolute top-0 right-0' onClick={handleNextStory}>
-
-                </div>
+                <div className='h-screen w-1/2 absolute top-0 left-0' onClick={handlePrevStory}></div>
+                <div className='h-screen w-1/2 absolute top-0 right-0' onClick={handleNextStory}></div>
             </div>
-            {/* <img src={currentStory.mediaUrl} alt="story" className="w-full mb-4" /> */}
-            {/* <img src={currentUser.user.avatarUrl} alt={currentUser.user.name} className="mx-auto mb-4 rounded-full" />
-            <h2 className="text-xl font-semibold mb-4">{currentUser.user.name}</h2>
-            {currentStory.mediaType === 'video' ? (
-            <video src={currentStory.mediaUrl} autoPlay className="w-full mb-4" />
-            ) : (
-            <img src={currentStory.mediaUrl} alt="story" className="w-full mb-4" />
-            )}
-            <div className="w-full h-1 bg-gray-200 rounded mb-4">
-            <div
-                className="h-1 bg-blue-500 rounded"
-                style={{ width: `${(currentStory.duration / 10) * 100}%` }}
-            ></div>
-            </div>
-        </div>
-        <div className="w-4/5 max-w-lg flex justify-between mt-4">
-            <button onClick={handlePrevStory} className="bg-gray-500 text-white px-4 py-2 rounded">
-            Previous
-            </button>
-            <button onClick={handleNextStory} className="bg-gray-500 text-white px-4 py-2 rounded">
-            Next
-            </button>
-        </div>
-        <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded" onClick={onClose}>
-            Close
-        </button> */}
         </div>
     );
 };
