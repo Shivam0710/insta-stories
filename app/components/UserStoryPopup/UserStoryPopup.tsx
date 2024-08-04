@@ -1,8 +1,10 @@
 import { addCurrentStoryToHistory, getRandomInt } from '@/helpers/helper';
 import useSwipe from '@/hooks/useSwipe';
 import { UserStories } from '@/types/types';
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { IoCloseSharp } from "react-icons/io5";
+import Loader from '../Loader/Loader';
 
 type PopupProps = {
     isOpen: boolean
@@ -16,6 +18,7 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
     const [currentUserIndex, setCurrentUserIndex] = useState(initialUserIndex);
     const [currentStoryIndex, setCurrentStoryIndex] = useState(initialStoryIndex);
     const [isPlaying, setIsPlaying] = useState(true);
+    const [imageLoading, setImageLoading] = useState(true);
 
     const currentUser = stories[currentUserIndex];
     const currentStory = currentUser.media[currentStoryIndex];
@@ -23,6 +26,7 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
     useEffect(() => {
         if (isPlaying) {
             const timer = setTimeout(() => {
+                setImageLoading(true)
                 if (currentStoryIndex < currentUser.media.length - 1) {
                     setCurrentStoryIndex(currentStoryIndex + 1);
                 } else if (currentUserIndex < stories.length - 1) {
@@ -38,7 +42,7 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
     }, [isPlaying, currentStoryIndex, currentUserIndex, currentStory.duration, onClose]);
 
     const handleNextStory = () => {
-        // setIsPlaying(false);
+        setImageLoading(true)
         if (currentStoryIndex < currentUser.media.length - 1) {
             setCurrentStoryIndex(currentStoryIndex + 1);
         } else if (currentUserIndex < stories.length - 1) {
@@ -50,7 +54,7 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
     };
 
     const handlePrevStory = () => {
-        // setIsPlaying(false);
+        setImageLoading(true)
         if (currentStoryIndex > 0) {
             setCurrentStoryIndex(currentStoryIndex - 1);
         } else if (currentUserIndex > 0) {
@@ -60,6 +64,7 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
     };
 
     const handleNextUser = () => {
+        setImageLoading(true)
         if (currentUserIndex < stories.length - 1) {
             setCurrentUserIndex(currentUserIndex + 1);
             setCurrentStoryIndex(0);
@@ -70,6 +75,7 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
     };
 
     const handlePrevUser = () => {
+        setImageLoading(true)
         if (currentUserIndex > 0) {
             setCurrentUserIndex(currentUserIndex - 1);
             setCurrentStoryIndex(stories[currentUserIndex - 1].media.length - 1);
@@ -82,7 +88,7 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
     addCurrentStoryToHistory(currentStory);
 
     return (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 flex flex-col items-center justify-center group">
+        <div className="fixed top-0 left-0 w-full h-full bg-black flex flex-col items-center justify-center group">
             <div className='progress-bar-container absolute top-2 w-[98%] mx-auto z-20'>
                 <div className="flex justify-between mb-4">
                     {currentUser.media.map((story, index) => (
@@ -107,7 +113,7 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
                 </div>
                 <div className='flex flex-row items-center justify-between pr-2'>
                     <div className='flex flex-row items-center gap-3'>
-                        <img src={currentUser.user.avatarUrl} alt={currentUser.user.name} className="h-10 w-10 rounded-full" />
+                        <Image width={40} height={40} src={currentUser.user.avatarUrl} alt={currentUser.user.name} className="h-10 w-10 rounded-full" />
                         <div className='flex gap-2'>
                             <p className='text-sm max-w-[100px] text-ellipsis overflow-hidden'>
                                 {currentUser.user.userName}
@@ -122,7 +128,8 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
             </div>
 
             <div className='w-full h-full'>
-                <img className='w-full h-full object-cover' src={currentStory.mediaUrl} alt="story" />
+                {imageLoading && <div className='h-full w-full flex items-center'> <Loader /> </div>} 
+                <Image priority={true} style={{ visibility: imageLoading ? 'hidden' : 'visible' }} src={currentStory.mediaUrl} alt="story" layout="fill" objectFit="cover" onLoad={() => setImageLoading(false)}  />
             </div>
             <div className='h-screen w-screen absolute top-0 left-0'>
                 <div className='h-screen w-1/2 absolute top-0 left-0' onClick={handlePrevStory}>
