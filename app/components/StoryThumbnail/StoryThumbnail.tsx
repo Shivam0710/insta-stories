@@ -1,5 +1,6 @@
 import { getCurrentStoryHistory } from '@/helpers/helper'
 import { Media, User } from '@/types/types'
+import Image from 'next/image'
 import React from 'react'
 
 type StoryThumbnailProps = {
@@ -22,7 +23,7 @@ export default function StoryThumbnail({ user, index, media, onClick}: StoryThum
     return (
         <div className='flex flex-col first:pl-4 last:pr-4 justify-center items-center w-[80px] text-ellipsis gap-2' onClick={() => onClick(index, leftStoryIndex)}>
             <button className={`${borderColorClass} text-white font-semibold p-[3px] rounded-full`}>
-                <img className='h-[56px] w-[56px] rounded-full' src={user.avatarUrl} alt={user.name} />
+                <Image width={56} height={56} className='h-[56px] w-[56px] rounded-full' src={user.avatarUrl} alt={user.name} />
             </button>
             <p className='w-[70px] text-ellipsis overflow-hidden text-wrap text-sm'> {user.userName} </p> 
         </div>
