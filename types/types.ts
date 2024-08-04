@@ -9,6 +9,7 @@ export interface Media {
     mediaUrl: string;
     mediaType: string;
     duration: number;
+    postedHoursAgo?: string;
 }
 
 export interface User {

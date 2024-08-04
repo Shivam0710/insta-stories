@@ -3,7 +3,7 @@ import StoriesContainer from "./components/StoriesContainer/StoriesContainer";
 
 export default function Home() {
   return (
-    <main className="">
+    <main className="h-screen w-screen dark:bg-black bg-white">
       <Header />
       <StoriesContainer />
     </main>

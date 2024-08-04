@@ -112,13 +112,13 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
                 </div>
                 <div className='flex flex-row items-center justify-between pr-2'>
                     <div className='flex flex-row items-center gap-3'>
-                        <NextImage width={40} height={40} src={currentUser.user.avatarUrl} alt={currentUser.user.name} className="h-10 w-10 rounded-full" />
+                        <NextImage width={40} height={40} src={currentUser.user.avatarUrl} alt={currentUser.user.name} className="h-10 w-10 rounded-full object-cover" />
                         <div className='flex gap-2'>
-                            <p className='text-sm max-w-[100px] text-ellipsis overflow-hidden'>
+                            <p className='text-sm max-w-[100px] text-ellipsis overflow-hidden text-white'>
                                 {currentUser.user.userName}
                             </p>
-                            <p className='text-sm'>
-                                {getRandomInt(24)} h
+                            <p className='text-sm text-white'>
+                                {currentStory.postedHoursAgo}
                             </p>
                         </div>
                     </div>
@@ -127,8 +127,13 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
             </div>
 
             <div className='w-full h-full'>
+                {imageLoading && <div className='h-full w-full flex items-center'> <Loader /> </div>}
                 { currentStory.mediaType === "video" &&
                     <video
+                        onCanPlay={() => {
+                            setImageLoading(false)
+                            console.log("loaded video")
+                        }}
                         className='w-full h-full'
                         src={currentStory.mediaUrl}
                         onEnded={handleNextStory}
@@ -138,7 +143,6 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
                 }
                 { currentStory.mediaType === "image" &&
                     <>
-                        {imageLoading && <div className='h-full w-full flex items-center'> <Loader /> </div>}
                         <NextImage
                             key={`${currentUserIndex}-${currentStoryIndex}`} // Add unique key
                             priority={true}
@@ -148,7 +152,6 @@ const UserStoryPopup = ({ isOpen, onClose, initialUserIndex = 0, initialStoryInd
                             layout="fill"
                             objectFit="cover"
                             onLoad={() => {
-                                console.log("Loading done")
                                 setImageLoading(false)
                             }}
                         />
