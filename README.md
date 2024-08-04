@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Insta Stories
+
+A simplified version of Instagram Stories built with TypeScript, React.js, and Next.js.
 
 ## Getting Started
 
-First, run the development server:
+### Installation
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your_username/insta-stories.git
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install the dependencies:
+    ```bash
+    npm install
+    ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+    ```bash
+    npm run dev
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. To run the tests:
+    ```bash
+    npm run test
+    ```
 
-## Learn More
+## Design Choices
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js**: For server-side rendering and static site generation.
+- **Tailwind CSS**: For utility-first CSS styling.
+- **Axios**: For data fetching.
+- **Next/Image**: For image optimization and caching.
+- **Uploadcare**: To compress and serve images optimized for the web in AVIF format.
+- **Vercel**: For hosting the web app.
+- **localStorage**: To store user-level information regarding viewed stories.
+- **Next.js API Routes**: For fetching stories.
+- **TypeScript**: For type checking.
+- **Jest**: For testing the code.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Key UI/UX Highlights
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Simple and straightforward design focusing on ease of use.
+- Users can view stories similar to Instagram Stories with an intuitive interface.
+- Click on a story to view it in full-screen mode.
+- Viewed stories are marked with gray borders.
+- New stories are highlighted with gradient borders.
+- Viewed stories are stored in localStorage to indicate they have been seen.
+- If a user has viewed only one story from another user, clicking on that user's story will show only the unviewed stories.
+- Animations enhance the user experience.
+- Slide animations are used when switching between different users' stories.
+- CDN caching and serving of highly compressed AVIF images.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Assumptions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- The API that fetches real-time stories is hard-coded for now.
